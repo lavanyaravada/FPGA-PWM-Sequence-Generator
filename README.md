@@ -58,18 +58,24 @@ Duty Cycle (%) = (HIGH Time / Total Period) × 100
 
 ## System Architecture
 
-+----------------------+         +----------------------+           +----------------------+            +----------------------+
-|      Clock / Reset   |   -->   |   Tick Generator     |   -->     | Sequence Controller |      -->    |  Sequence Memory     |
-+----------------------+         |  Sequence Timing     |           |  Address Generation |             |  Duty-Cycle Values   |
-                                 +----------+-----------+           +----------+-----------+            +----------+-----------+
-
-                                                                                                                 |
-                                                                                                                 v
-                                                      +----------------------+                    +------------+------------+
-                         PWM_OUT[7:0]       < --      |  8-Channel PWM       |         <--        |           |            |
-                                                      |     Generator        |                 Duty 0      Duty 1      ...Duty 7
-                                                      +----------+-----------+                    |            |            |
-                                                                                                   +------------+------------+
+    +----------------------+             +----------------------+                 +----------------------+           
+    |      Clock / Reset   |   -->       |   Tick Generator     |   -->           | Sequence Controller |       
+    +----------------------+             |  Sequence Timing     |                 |  Address Generation |            
+                                         +----------+-----------+                 +----------+-----------+          
+                                                                                                 |
+                                                                                                 V
+                                                                                        +----------+-----------+
+                                                                                        |  Sequence Memory     |
+                                                                                        |  Duty-Cycle Values   |
+                                                                                        +----------------------+
+                                                                                               
+                                                                                                  |
+                                                                                                  v
+                                           +----------------------+                    +------------+------------+
+              PWM_OUT[7:0]       < --      |  8-Channel PWM       |         <--        |           |            |
+                                           |     Generator        |                 Duty 0      Duty 1      ...Duty 7
+                                           +----------+-----------+                    |            |            |
+                                                                                       +------------+------------+
     ![System Block Diagram](screenshots/block_diagram.png)      
 
  ## Design Flow:
